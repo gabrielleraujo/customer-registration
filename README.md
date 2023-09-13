@@ -5,13 +5,9 @@
 1. dotnet ef --startup-project ../CustomerRegistration.API/  migrations add initial -c CustomerRegistrationCommandContext --msbuildprojectextensionspath local/obj -v
 2. dotnet ef --startup-project ../CustomerRegistration.API/  database update
 
-#### Rabbitmq
-- To enable rabbitmq run the command below on terminal.
-
-1. rabbitmq-server
-
-- Queues and TrackingsExchanges must be previously created to run the project.
+#### Docker
+- Run docker-compose up in the project root directory to start all services defined in the docker-compose.yml file.
 
 #### Swagger
-- https://localhost:7164/swagger/index.html
+- https://localhost:7014/swagger/index.html
 

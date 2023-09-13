@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Serviço SQL Server
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    environment:
+      SA_PASSWORD: MyStrongPassword123
+      ACCEPT_EULA: Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql/data
+
+  # Serviço da camada de API
+  api:
+    build:
+      context: ./CustomerRegistration.API
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - sqlserver
+
+  # Serviço da camada de Application
+  application:
+    build:
+      context: ./CustomerRegistration.Application
+      dockerfile: Dockerfile
+    depends_on:
+      - sqlserver
+
+  # Serviço da camada de Domain
+  domain:
+    build:
+      context: ./CustomerRegistration.Domain
+      dockerfile: Dockerfile
+    depends_on:
+      - sqlserver
+
+  # Serviço da camada de Infrastructure
+  infrastructure:
+    build:
+      context: ./CustomerRegistration.Infrastructure
+      dockerfile: Dockerfile
+    depends_on:
+      - sqlserver
+
+volumes:
+  sqlserver-data:
