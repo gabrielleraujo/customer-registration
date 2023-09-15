@@ -1,3 +1,0 @@
-# Arquivos e diretórios a serem ignorados durante a construção da imagem Docker
-bin/
-obj/
