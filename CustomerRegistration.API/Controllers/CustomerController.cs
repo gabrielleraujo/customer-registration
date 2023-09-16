@@ -27,6 +27,7 @@ public class CustomerRegistrationController : ControllerBase
     [HttpPost]
     [SwaggerOperation(Summary = "Registra um cliente.")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> Add([FromBody] RegisterCustomerCommand command)
     {
         var result = await _mediator.Send(command);
