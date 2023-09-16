@@ -18,7 +18,7 @@ public class Customer : BaseEntity
         CellPhone = cellPhone;
         MainEmail = mainEmail;
         ClassifiedAdresses = new List<ClassifiedAddress>();
-        ApplyValidation();
+        Validate();
     }
 
     public Name Name { get; private set; }

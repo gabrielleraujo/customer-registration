@@ -20,9 +20,9 @@ namespace CustomerRegistration.Application.Queries.GetCustomersById
 
             if (customer == null) return null;
 
-            var purchaseViewModel = CustomerViewModel.MapFromDomain(customer);
+            var viewModel = CustomerViewModel.MapFromDomain(customer);
 
-            return purchaseViewModel;
+            return viewModel;
         }
     }
 }

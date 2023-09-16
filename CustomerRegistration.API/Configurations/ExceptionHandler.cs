@@ -6,19 +6,22 @@ namespace CustomerRegistration.API.Configurations;
 
 public static class ExceptionHandler
 {
-    public static Task DomainExceptionHandleAsync(this HttpContext context, DomainException exception, Guid requestId)
+    public static async Task DomainExceptionHandleAsync(
+        this HttpContext context, DomainException exception, Guid requestId)
     {
-        var message = CreateMessageError(context, exception);
-
-        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        return context.Response.WriteAsync(new ErrorResponse(
-            requestId, 
-            context.Response.StatusCode, 
-            "An error occurred in domain validation while processing your request.", 
-            message).ToString());
+        await WriteErrorResponseAsync(context, exception, requestId, 
+            "An error occurred in domain validation while processing your request.");
     }
 
-    public static Task ExceptionHandleAsync(this HttpContext context, Exception exception, Guid requestId)
+    public static async Task ExceptionHandleAsync(
+        this HttpContext context, Exception exception, Guid requestId)
+    {
+        await WriteErrorResponseAsync(context, exception, requestId, 
+            "An unexpected error occurred while processing your request.");
+    }
+
+    private static Task WriteErrorResponseAsync(
+        HttpContext context, Exception exception, Guid requestId, string contextError)
     {
         var message = CreateMessageError(context, exception);
 
@@ -26,7 +29,7 @@ public static class ExceptionHandler
         return context.Response.WriteAsync(new ErrorResponse(
             requestId, 
             context.Response.StatusCode, 
-            "An unexpected error occurred while processing your request.", 
+            contextError, 
             message).ToString());
     }
 

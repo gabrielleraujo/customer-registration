@@ -10,7 +10,6 @@ namespace CustomerRegistration.Test.Domain
         public void AddAddressWhenFirstInsertIsNotMainAddressThenNeedThowsDomainException()
         {
             var customer = CustomerFactory.Get();
-            var address = AddressFactory.Get();
 
             Action act = () => customer.AddAddress(ClassifiedAddressFactory.Get(
                 customer.Id,
@@ -25,7 +24,6 @@ namespace CustomerRegistration.Test.Domain
         public void AddAddressWhenTyInsertMoreThan1IsMainAddressThenNeedThowsDomainException()
         {
             var customer = CustomerFactory.Get();
-            var address = AddressFactory.Get();
 
             customer.AddAddress(ClassifiedAddressFactory.Get(
                 customer.Id,
@@ -46,7 +44,6 @@ namespace CustomerRegistration.Test.Domain
         public void AddAddressWhenInsertOneIsMainAddressThenNeedNotThowsDomainException()
         {
             var customer = CustomerFactory.Get();
-            var address = AddressFactory.Get();
 
             Action act = () => customer.AddAddress(ClassifiedAddressFactory.Get(
                 customer.Id,

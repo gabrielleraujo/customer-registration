@@ -27,6 +27,7 @@ public class CustomerRegistrationController : ControllerBase
     [HttpPost]
     [SwaggerOperation(Summary = "Registra um cliente.")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> Add([FromBody] RegisterCustomerCommand command)
     {
@@ -37,6 +38,7 @@ public class CustomerRegistrationController : ControllerBase
     [HttpPost("address")]
     [SwaggerOperation(Summary = "Registra um endereço para um cliente registrado.")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> AddAddress(AddClassifiedAddressCommand command)
     {
@@ -47,6 +49,7 @@ public class CustomerRegistrationController : ControllerBase
     [HttpPatch("recovery-email")]
     [SwaggerOperation(Summary = "Registra um email de recuperação para um cliente registrado.")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> AddRecoveryEmail([FromBody] AddRecoveryEmailCommand command)
     {
