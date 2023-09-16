@@ -7,20 +7,20 @@ namespace CustomerRegistration.Test.Domain
     public class EmailTest
     {
         [Theory]
-        [InlineData("gabrielleraujo@gmail.com")]
-        [InlineData("teste@hotmail.com")]
-        public void EmailWhenMailAddressReturnFalseThenNeedNotThowsDomainException(string email)
+        [InlineData("gabrielleraujogmail.com")]
+        [InlineData("teste@gmal")]
+        public void EmailWhenMailAddressReturnFalseThenNeedThowsDomainException(string email)
         {
             Action act = () => new Email(email);
-            act.Should().Throw<DomainException>().WithMessage("The e-mail is invalid.");
+            act.Should().Throw<DomainException>().WithMessage("\nErrors:\nThe e-mail is invalid.");
         }
 
         [Theory]
-        [InlineData("gabrielleraujogmail.com")]
-        [InlineData("teste@gmail")]
+        [InlineData("gabrielleraujo@gmail.com")]
+        [InlineData("teste@hotmail.com")]
         public void EmailWhenMailAddressIsCreateWithSuccessThenNeedNotThowsDomainException(string email)
         {
-            Action act = () => new CellPhone(email);
+            Action act = () => new Email(email);
             act.Should().NotThrow<DomainException>();
         }
     }

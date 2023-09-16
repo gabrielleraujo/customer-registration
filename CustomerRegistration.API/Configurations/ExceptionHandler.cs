@@ -33,6 +33,6 @@ public static class ExceptionHandler
     private static string CreateMessageError(HttpContext context, Exception exception)
     {
         context.Response.ContentType = "application/json";
-        return $"Service error: {context.Request.Path} - Message: {exception.Message}";
+        return $"Route: {context.Request.Path} - {exception.Message}";
     }
 }

@@ -36,17 +36,18 @@ public class Customer : BaseEntity
         }
 
         var classifiedAdressesCount = ClassifiedAdresses.Count;
+        if (classifiedAdressesCount == 0 && !address.IsMain)
+        {
+            AddError("The customer must have at least one main address.");
+            ThrowDomainError();
+        }
         if (ClassifiedAdresses.Count > 0)
         {
-            if (!ClassifiedAdresses.Any(x => x.IsMain))
-            {
-                AddError("The customer must have at least one main address.");
-            }
-
             var isMainCount = ClassifiedAdresses.Where(x => x.IsMain).Count();
             if (isMainCount == 1 && address.IsMain)
             {
                 AddError("The customer must have only one main address.");
+                ThrowDomainError();
             }
         }
         ClassifiedAdresses.Add(address);
@@ -62,6 +63,7 @@ public class Customer : BaseEntity
         }
         else {
             AddError("The recovery email must be different from the main email.");
+            ThrowDomainError();
         }
     }
 

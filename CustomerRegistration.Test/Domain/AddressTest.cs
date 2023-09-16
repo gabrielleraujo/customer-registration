@@ -8,7 +8,7 @@ namespace CustomerRegistration.Test.Domain
     public class AddressTest
     {
         [Fact]
-        public void AddressWhenStateIsEmptyThenNeedNotThowsDomainException()
+        public void AddressWhenStateIsEmptyThenNeedThowsDomainException()
         {
             Action act = () => new Address(
                 postalCode: "12345678",
@@ -19,7 +19,7 @@ namespace CustomerRegistration.Test.Domain
                 number: 100,
                 complement: "house"
             );
-            act.Should().Throw<DomainException>().WithMessage("The State cannot be null or empty.");
+            act.Should().Throw<DomainException>().WithMessage("\nErrors:\nThe State cannot be null or empty.");
         }
 
         [Fact]

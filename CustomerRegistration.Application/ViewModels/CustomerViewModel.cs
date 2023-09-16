@@ -33,7 +33,7 @@ public record CustomerViewModel : BaseEntityViewModel
     [JsonPropertyName("recovery_email")]
     public string? RecoveryEmail { get; private set; } = null;
 
-    [JsonPropertyName("classified_email")]
+    [JsonPropertyName("classified_address")]
     public IList<ClassifiedAddressViewModel>? ClassifiedAdresses { get; private set; } = null;
 
     public static CustomerViewModel MapFromDomain(Customer entity)

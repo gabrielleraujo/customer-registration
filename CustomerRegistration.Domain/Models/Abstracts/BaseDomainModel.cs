@@ -23,8 +23,13 @@ public abstract class BaseDomainModel
     {
         if (!IsValid)
         {
-            throw new DomainException("\nErrors:\n" + string.Join("\n", _erros));
+            ThrowDomainError();
         }
+    }
+
+    protected void ThrowDomainError()
+    {
+        throw new DomainException("\nErrors:\n" + string.Join("\n", _erros));
     }
 
     public void AddError(string error)

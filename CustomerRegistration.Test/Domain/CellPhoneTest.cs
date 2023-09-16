@@ -13,10 +13,10 @@ namespace CustomerRegistration.Test.Domain
         [InlineData("(21) 9900-0002")]
         [InlineData("21 79900-8070")]
         [InlineData("(88) 00000-0000")]
-        public void CellPhoneWhenNumberIsNotMatchPatternThenNeedNotThowsDomainException(string cellphone)
+        public void CellPhoneWhenNumberIsNotMatchPatternThenNeedThowsDomainException(string cellphone)
         {
             Action act = () => new CellPhone(cellphone);
-            act.Should().Throw<DomainException>().WithMessage("The cell phone number is invalid.");
+            act.Should().Throw<DomainException>().WithMessage("\nErrors:\nThe cell phone number is invalid.");
         }
 
         [Theory]

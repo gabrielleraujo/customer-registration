@@ -18,7 +18,7 @@ namespace CustomerRegistration.Test.Domain
                 isMain: false
             ));
 
-            act.Should().Throw<DomainException>().WithMessage("The customer must have at least one main address.");
+            act.Should().Throw<DomainException>().WithMessage("\nErrors:\nThe customer must have at least one main address.");
         }
 
         [Fact]
@@ -39,11 +39,11 @@ namespace CustomerRegistration.Test.Domain
                 isMain: true
             ));
 
-            act.Should().Throw<DomainException>().WithMessage("The customer must have only one main address.");
+            act.Should().Throw<DomainException>().WithMessage("\nErrors:\nThe customer must have only one main address.");
         }
 
         [Fact]
-        public void AddAddressWhenInsertOneIsMainAddressThenNeedNotThowsDomainException(string email)
+        public void AddAddressWhenInsertOneIsMainAddressThenNeedNotThowsDomainException()
         {
             var customer = CustomerFactory.Get();
             var address = AddressFactory.Get();

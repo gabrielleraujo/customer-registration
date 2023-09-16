@@ -7,10 +7,10 @@ namespace CustomerRegistration.Test.Domain
     public class ClassifiedAddressTest
     {
         [Fact]
-        public void ClassifiedAddressWhenClassifiedIsEmptyThenNeedNotThowsDomainException()
+        public void ClassifiedAddressWhenClassifiedIsEmptyThenNeedThowsDomainException()
         {
             Action act = () => ClassifiedAddressFactory.Get(Guid.NewGuid(), classified: "");
-            act.Should().Throw<DomainException>().WithMessage("The Classified cannot be null or empty.");
+            act.Should().Throw<DomainException>().WithMessage("\nErrors:\nThe Classified cannot be null or empty.");
         }
 
         [Fact]
