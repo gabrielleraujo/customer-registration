@@ -35,6 +35,12 @@ namespace CustomerRegistration.Application.Commands.AddClassifiedAddressCommand
 
             var customer = await _repository.FindByAsync(x => x.Id == command.CustomerId);
 
+            if (customer == null)
+            {
+                AddError("Customer not found.");
+                return ValidationResult;
+            }
+
             var classifiedAddress = new ClassifiedAddress(
                 id: Guid.NewGuid(),
                 customerId: command.CustomerId,

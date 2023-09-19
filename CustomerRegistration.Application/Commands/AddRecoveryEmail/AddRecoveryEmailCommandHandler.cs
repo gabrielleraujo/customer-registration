@@ -35,6 +35,12 @@ namespace CustomerRegistration.Application.Commands.AddRecoveryEmailCommand
 
             var customer = await _repository.FindByAsync(x => x.Id == command.CustomerId);
 
+            if (customer == null)
+            {
+                AddError("Customer not found.");
+                return ValidationResult;
+            }
+
             customer.AddRecoveryEmail(new Email(command.Email));
 
             _repository.Update(customer);

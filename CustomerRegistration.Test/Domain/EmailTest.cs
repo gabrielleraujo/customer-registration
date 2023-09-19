@@ -9,7 +9,7 @@ namespace CustomerRegistration.Test.Domain
         [Theory]
         [InlineData("gabrielleraujogmail.com")]
         [InlineData("teste@gmal")]
-        public void EmailWhenMailAddressReturnFalseThenNeedThowsDomainException(string email)
+        public void EmailWhenEmailIsNotMatchPatternThenNeedThowsDomainException(string email)
         {
             Action act = () => new Email(email);
             act.Should().Throw<DomainException>().WithMessage("\nErrors:\nThe e-mail is invalid.");
@@ -18,7 +18,7 @@ namespace CustomerRegistration.Test.Domain
         [Theory]
         [InlineData("gabrielleraujo@gmail.com")]
         [InlineData("teste@hotmail.com")]
-        public void EmailWhenMailAddressIsCreateWithSuccessThenNeedNotThowsDomainException(string email)
+        public void EmailWhenEmailIsMatchPatternThenNeedNotThowsDomainException(string email)
         {
             Action act = () => new Email(email);
             act.Should().NotThrow<DomainException>();
