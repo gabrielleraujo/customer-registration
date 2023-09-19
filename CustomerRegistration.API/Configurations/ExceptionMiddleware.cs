@@ -2,12 +2,12 @@ using CustomerRegistration.Domain.Models.Exceptions;
 
 namespace CustomerRegistration.API.Configurations;
 
-public class ExceptionHandlerMidleware
+public class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly ILogger<ExceptionHandlerMidleware> _logger;
+    private readonly ILogger<ExceptionMiddleware> _logger;
 
-    public ExceptionHandlerMidleware(RequestDelegate next, ILogger<ExceptionHandlerMidleware> logger)
+    public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
     {
         _next = next;
         _logger = logger;

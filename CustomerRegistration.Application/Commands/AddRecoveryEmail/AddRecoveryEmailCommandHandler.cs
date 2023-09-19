@@ -1,5 +1,4 @@
 using MediatR;
-using CustomerRegistration.Domain.Models.Entities;
 using CustomerRegistration.Domain.Repositories;
 using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
