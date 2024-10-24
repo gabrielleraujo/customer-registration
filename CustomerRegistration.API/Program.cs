@@ -1,5 +1,6 @@
 using CustomerRegistration.API.Configurations;
 using CustomerRegistration.Application;
+using CustomerRegistration.Domain.Messaging;
 using CustomerRegistration.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,11 @@ builder.Services.AddControllers();
 builder.Services
     .AddEndpointsApiExplorer()
     .AddSwaggerConfiguration();
+
+var configuration = builder.Services.BuildServiceProvider().GetService<IConfiguration>();
+
+builder.Services
+    .Configure<MessageBusConnectionConfigModel>(configuration!.GetSection("RabbitMQ"));
 
 builder.Services
     .AddApplicationModule()
@@ -20,9 +26,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerConfiguration();
 }
 
+app.Services.UseMessageBusSetup();
+
+// Aplicar migrations ao iniciar a aplicação
+app.UseMigration(configuration);
+
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionMidleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthorization();
 

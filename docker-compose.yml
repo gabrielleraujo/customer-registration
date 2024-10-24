@@ -1,18 +1,50 @@
 version: '3.8'
 
 services:
-  # Serviço do SQL Server
-  sql-server:
+  api:
+    container_name: customer-registration-api-container-debug
+    build:
+      context: .
+      dockerfile: CustomerRegistration.API/Dockerfile
+      args:
+        - configuration=Debug
+    ports:
+      - "32768:32768"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      #ASPNETCORE_ENVIRONMENT: "Production"
+      ASPNETCORE_URLS: "http://+:32768"
+    depends_on:
+      - customer-registration-sql-server
+      - rabbitmq
+    networks:
+      - my-network
+    volumes:
+      - ~/.vsdbg:/remote_debugger  # Para o depurador (Permite gravação)
+
+  customer-registration-sql-server:
     image: mcr.microsoft.com/azure-sql-edge:latest
-    container_name: sql-server-container
+    container_name: customer-registration-sql-server-container
     environment:
       SA_PASSWORD: Docker1206
       ACCEPT_EULA: Y
-      MSSQL_DBNAME: customer_registration
     ports:
       - "1433:1433"
     networks:
       - my-network
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: customer-registration-rabbitmq-container
+    ports:
+      - "5672:5672"   # Porta padrão do RabbitMQ
+      - "15672:15672" # Porta do painel de gerenciamento do RabbitMQ
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - my-network
+
 networks:
   my-network:
+    external: true # Para poder compartilhar o rabbitmq

@@ -1,0 +1,49 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "docker-create-network",
+        "type": "shell",
+        "command": "docker network create shared-network || true", 
+        "problemMatcher": [],
+        "detail": "Cria a rede Docker compartilhada se ela não existir"
+      },
+      {
+        "label": "build",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+          "build",
+          "${workspaceFolder}/CustomerRegistration.API/CustomerRegistration.API.csproj",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary"
+        ],
+        "problemMatcher": "$msCompile",
+        "group": "build",
+        "detail": "Build da API CustomerRegistration"
+      },
+      {
+        "label": "docker-run: debug",
+        "type": "shell",
+        "command": "docker-compose -f docker-compose.yml up --build",
+        "dependsOn": "docker-create-network",
+        "problemMatcher": [],
+        "detail": "Inicia o Docker Compose para o ambiente de depuração."
+      },
+      {
+        "label": "docker-run: stop",
+        "type": "shell",
+        "command": "docker-compose -f docker-compose.yml down",
+        "problemMatcher": [],
+        "detail": "Para e remove os containers do Docker Compose."
+      },
+      {
+        "label": "docker-run: clean",
+        "type": "shell",
+        "command": "docker-compose -f docker-compose.yml down --rmi all -v --remove-orphans",
+        "problemMatcher": [],
+        "detail": "Limpa os containers, volumes e imagens criados pelo Docker Compose."
+      }
+    ]
+  }
+  

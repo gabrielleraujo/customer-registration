@@ -16,7 +16,7 @@ namespace CustomerRegistration.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FisrtName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CellPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MainEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),

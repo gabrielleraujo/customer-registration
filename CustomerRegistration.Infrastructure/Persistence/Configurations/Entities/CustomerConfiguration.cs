@@ -16,7 +16,7 @@ public class CustomerConfiguration: IEntityTypeConfiguration<Customer>
         builder.OwnsOne(x => x.Name, y =>
             {
                 y.Property(y => y.First)
-                    .HasColumnName("FisrtName")
+                    .HasColumnName("FirstName")
                     .IsRequired();
 
                 y.Property(y => y.Last)

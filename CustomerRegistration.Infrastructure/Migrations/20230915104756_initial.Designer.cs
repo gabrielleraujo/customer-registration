@@ -165,7 +165,7 @@ namespace CustomerRegistration.Infrastructure.Migrations
                             b1.Property<string>("First")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("FisrtName");
+                                .HasColumnName("FirstName");
 
                             b1.Property<string>("Last")
                                 .IsRequired()

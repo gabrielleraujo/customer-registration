@@ -1,0 +1,57 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Core Docker Attach",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:pickProcess}",
+      "pipeTransport": {
+        "pipeProgram": "docker",
+        "pipeArgs": [
+          "exec",
+          "-i",
+          "customer-registration-api-container-debug",  // Nome do serviço no docker-compose
+          "sh",
+          "-c"
+        ],
+        "debuggerPath": "/vsdbg/vsdbg",
+        "pipeCwd": "${workspaceFolder}",
+        "quoteArgs": true
+      },
+      "sourceFileMap": {
+        "/src": "${workspaceFolder}"
+      },
+      "justMyCode": true
+    },
+    {
+      "name": "Docker .NET Core Launch",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "docker-run: debug",
+      "program": "/app/CustomerRegistration.API.dll",
+      "args": [],
+      "cwd": "/app",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on: (https?://\\S+)",
+        "uriFormat": "%s"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/src": "${workspaceFolder}"
+      },
+      // Posso comentar esse bloco abaixo se der erro, eu adicionei ele depois.
+      "pipeTransport": {
+        "pipeProgram": "docker",
+        "pipeArgs": [ "exec", "-i", "customer-registration-api-container-debug" ],
+        "debuggerPath": "/vsdbg/vsdbg",
+        "pipeCwd": "${workspaceFolder}",
+        "quoteArgs": false
+      }
+    }
+  ]
+}

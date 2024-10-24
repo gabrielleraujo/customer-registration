@@ -11,6 +11,7 @@ public static class ApplicationModule
     {
         services
             .AddValidators()
+            .AddConsumers()
             .AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
         return services;
@@ -21,6 +22,14 @@ public static class ApplicationModule
         services.AddValidatorsFromAssemblyContaining<AddClassifiedAddressCommandValidation>(ServiceLifetime.Scoped);
         services.AddValidatorsFromAssemblyContaining<AddRecoveryEmailCommandValidation>(ServiceLifetime.Scoped);
         services.AddValidatorsFromAssemblyContaining<RegisterCustomerCommandValidator>(ServiceLifetime.Scoped);
+
+        return services;
+    }
+
+    private static IServiceCollection AddConsumers(this IServiceCollection services) 
+    {
+        // Registra o consumidor RabbitMQ
+        //services.AddHostedService<RabbitMqDemoConsumer>();
 
         return services;
     }
