@@ -13,7 +13,7 @@ namespace CustomerRegistration.Infrastructure.Messaging
         private readonly IModel _channel;
         private readonly ILogger<RabbitMqPublisher> _logger;
         private const string _exchange = "customer-service-exchange";
-        private const string _queueDeadLetter = "customer_registration_dead_letter_queue";
+        private const string _queueMainAddressRegisteredDeadLetter = "customer_main_address_registered_dead_letter_queue";
 
         public RabbitMqPublisher(IConnection connection, IModel channel, ILogger<RabbitMqPublisher> logger)
         {
@@ -24,8 +24,6 @@ namespace CustomerRegistration.Infrastructure.Messaging
 
         public void PublishMessage(object data, string routingKey)
         {
-            _logger.LogInformation($"{nameof(RabbitMqPublisher)} - START ==============================================================================================");
-            _logger.LogInformation($"Publish message: {payload}");
             var policy = Policy
                 .Handle<Exception>()
                 .WaitAndRetry(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
@@ -36,6 +34,9 @@ namespace CustomerRegistration.Infrastructure.Messaging
 
             var payload = JsonConvert.SerializeObject(data);
             var byteArray = Encoding.UTF8.GetBytes(payload);
+
+            _logger.LogInformation($"{nameof(RabbitMqPublisher)} - START ==============================================================================================");
+            _logger.LogInformation($"Publish message: {payload}");
 
             try
             {
