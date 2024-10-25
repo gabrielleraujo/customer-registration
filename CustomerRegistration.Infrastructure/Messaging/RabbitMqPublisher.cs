@@ -52,7 +52,7 @@ namespace CustomerRegistration.Infrastructure.Messaging
                 _logger.LogError($"Failed to publish message: {ex.Message}");
 
                 // Enviar para Dead Letter Queue
-                _channel.BasicPublish(_exchange, _queueDeadLetter, null, byteArray);
+                _channel.BasicPublish(_exchange, _queueMainAddressRegisteredDeadLetter, null, byteArray);
                 _logger.LogInformation($"Message sent to dead-letter queue: {data.GetType().Name}");
             }
             _logger.LogInformation($"{nameof(RabbitMqPublisher)} - END ==============================================================================================");
